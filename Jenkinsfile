@@ -24,8 +24,9 @@ node {
 	stage('copy files to local workspace'){
 		echo "${env.JOB_NAME}"
 		echo "${WORKSPACE}"
-		sh "mkdir -p ${WORKSPACE}/src_copy"
-		sh "cp -R . src_copy"
+		sh "mkdir -p ${WORKSPACE}/src"
+		sh "cp -R 'force-app' src"
+        sh "cp -R ${PACKAGEDIR} src"
 	}
 	
 
@@ -82,7 +83,7 @@ node {
         //    }
         //}
     }
-    
+
     post { 
         always { 
             cleanWs()
