@@ -86,6 +86,7 @@ node {
 
     post { 
         always { 
+            echo "Cleaning up"
             cleanWs()
         }
     }
