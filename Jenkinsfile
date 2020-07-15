@@ -36,7 +36,7 @@ node {
     // JWT key credentials.
     // -------------------------------------------------------------------------
 
-    withCredentials([file(credentialsId: SERVER_KEY_CREDENTIALS_ID, variable: 'server_key_file')]) {
+    /*withCredentials([file(credentialsId: SERVER_KEY_CREDENTIALS_ID, variable: 'server_key_file')]) {
         // -------------------------------------------------------------------------
         // Authenticate to Salesforce using the server key.
         // -------------------------------------------------------------------------
@@ -55,7 +55,7 @@ node {
         // -------------------------------------------------------------------------
 
         stage('Deploy and Run Tests'){
-            rc = command "${toolbelt}/sfdx force:source:deploy --wait 10 --checkonly -x ${PACKAGEDIR} --targetusername UAT --testlevel ${TEST_LEVEL}"
+            rc = command "${toolbelt}/sfdx force:source:deploy --wait 10 --checkonly -x ${WORKSPACE}/${PACKAGEDIR} --targetusername UAT --testlevel ${TEST_LEVEL}"
              if (rc != 0) {
                  error 'Salesforce deploy and test run failed.'
              }
@@ -90,7 +90,7 @@ node {
             echo "Cleaning up"
             //cleanWs()
         }
-    }
+    }*/
 
 }
 	
