@@ -6,21 +6,13 @@ node {
     def SF_USERNAME=env.SF_USERNAME
     def SERVER_KEY_CREDENTIALS_ID=env.SERVER_KEY_CREDENTIALS_ID
     def DEPLOYDIR='src'
-<<<<<<< HEAD
     def PACKAGEDIR='manifest'
     def TEST_LEVEL='RunLocalTests'
-=======
-    def TEST_LEVEL='NoTestRun'
     def WORKSPACE = env.WORKSPACE
->>>>>>> 27f7b6efa42cb11cbd8ad79c1ff813a4c52f0afd
-
 
     def toolbelt = tool 'toolbelt'
 
 	
-	
-	
-
     // -------------------------------------------------------------------------
     // Check out code from source control.
     // -------------------------------------------------------------------------
@@ -61,7 +53,7 @@ node {
         // -------------------------------------------------------------------------
 
         stage('Deploy and Run Tests'){
-            rc = command "${toolbelt}/sfdx force:source:deploy --wait 10 --x ${PACKAGEDIR} --targetusername UAT --testlevel ${TEST_LEVEL}"
+            rc = command "${toolbelt}/sfdx force:source:deploy --wait 10 --checkonly --x ${PACKAGEDIR} --targetusername UAT --testlevel ${TEST_LEVEL}"
              if (rc != 0) {
                  error 'Salesforce deploy and test run failed.'
              }
