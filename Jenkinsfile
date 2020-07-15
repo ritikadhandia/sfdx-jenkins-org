@@ -82,6 +82,12 @@ node {
         //    }
         //}
     }
+    
+    post { 
+        always { 
+            cleanWs()
+        }
+    }
 
 }
 	
