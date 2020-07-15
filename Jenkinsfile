@@ -6,12 +6,20 @@ node {
     def SF_USERNAME=env.SF_USERNAME
     def SERVER_KEY_CREDENTIALS_ID=env.SERVER_KEY_CREDENTIALS_ID
     def DEPLOYDIR='src'
+<<<<<<< HEAD
     def PACKAGEDIR='manifest'
     def TEST_LEVEL='RunLocalTests'
+=======
+    def TEST_LEVEL='NoTestRun'
+    def WORKSPACE = env.WORKSPACE
+>>>>>>> 27f7b6efa42cb11cbd8ad79c1ff813a4c52f0afd
 
 
     def toolbelt = tool 'toolbelt'
 
+	
+	
+	
 
     // -------------------------------------------------------------------------
     // Check out code from source control.
@@ -21,6 +29,13 @@ node {
         checkout scm
     }
 
+	stage('copy files to local workspace'){
+		echo "${env.JOB_NAME}"
+		echo "${WORKSPACE}"
+		sh "mkdir -p ${WORKSPACE}/src_copy"
+		sh "cp -R ${DEPLOYDIR} src_copy"
+	}
+	
 
     // -------------------------------------------------------------------------
     // Run all the enclosed stages with access to the Salesforce
@@ -33,7 +48,9 @@ node {
         // -------------------------------------------------------------------------
 
         stage('Authorize to Salesforce') {
-            rc = command "${toolbelt}/sfdx force:auth:jwt:grant --instanceurl https://test.salesforce.com --clientid ${SF_CONSUMER_KEY} --jwtkeyfile ${server_key_file} --username ${SF_USERNAME} --setalias UAT"
+            rl = command "${toolbelt}/sfdx force:auth:logout -p -u ${SF_USERNAME}"
+	
+	    rc = command "${toolbelt}/sfdx force:auth:jwt:grant --instanceurl https://login.salesforce.com --clientid ${SF_CONSUMER_KEY} --jwtkeyfile ${server_key_file} --username ${SF_USERNAME} --setalias UAT"
             if (rc != 0) {
                 error 'Salesforce org authorization failed.'
             }
@@ -43,14 +60,12 @@ node {
         // Deploy metadata and execute unit tests - source format
         // -------------------------------------------------------------------------
 
-
         stage('Deploy and Run Tests'){
             rc = command "${toolbelt}/sfdx force:source:deploy --wait 10 --x ${PACKAGEDIR} --targetusername UAT --testlevel ${TEST_LEVEL}"
              if (rc != 0) {
                  error 'Salesforce deploy and test run failed.'
              }
         }
-
 
         // -------------------------------------------------------------------------
         // Deploy metadata and execute unit tests - metadata format
@@ -75,12 +90,14 @@ node {
         //    }
         //}
     }
+
 }
+	
 
 def command(script) {
     if (isUnix()) {
         return sh(returnStatus: true, script: script);
     } else {
-		return bat(returnStatus: true, script: script);
+	return bat(returnStatus: true, script: script);
     }
 }
