@@ -36,7 +36,7 @@ node {
     // JWT key credentials.
     // -------------------------------------------------------------------------
 
-    /*withCredentials([file(credentialsId: SERVER_KEY_CREDENTIALS_ID, variable: 'server_key_file')]) {
+    withCredentials([file(credentialsId: SERVER_KEY_CREDENTIALS_ID, variable: 'server_key_file')]) {
         // -------------------------------------------------------------------------
         // Authenticate to Salesforce using the server key.
         // -------------------------------------------------------------------------
@@ -90,7 +90,7 @@ node {
             echo "Cleaning up"
             //cleanWs()
         }
-    }*/
+    }
 
 }
 	
