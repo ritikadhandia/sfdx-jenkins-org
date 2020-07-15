@@ -55,7 +55,7 @@ node {
         // -------------------------------------------------------------------------
 
         stage('Deploy and Run Tests'){
-            rc = command "${toolbelt}/sfdx force:source:deploy --wait 10 --checkonly -x ${WORKSPACE}/${PACKAGEDIR} --targetusername UAT --testlevel ${TEST_LEVEL}"
+            rc = command "${toolbelt}/sfdx force:source:deploy --wait 10 --checkonly -x ${WORKSPACE}/${PACKAGEDIR}/package.xml --targetusername UAT --testlevel ${TEST_LEVEL}"
              if (rc != 0) {
                  error 'Salesforce deploy and test run failed.'
              }
