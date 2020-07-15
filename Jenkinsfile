@@ -6,6 +6,7 @@ node {
     def SF_USERNAME=env.SF_USERNAME
     def SERVER_KEY_CREDENTIALS_ID=env.SERVER_KEY_CREDENTIALS_ID
     def DEPLOYDIR='src'
+    def PACKAGEDIR='manifest'
     def TEST_LEVEL='RunLocalTests'
 
 
@@ -38,17 +39,29 @@ node {
             }
         }
 
-
         // -------------------------------------------------------------------------
-        // Deploy metadata and execute unit tests.
+        // Deploy metadata and execute unit tests - source format
         // -------------------------------------------------------------------------
 
-        stage('Deploy and Run Tests') {
-            rc = command "${toolbelt}/sfdx force:mdapi:deploy --wait 10 --deploydir ${DEPLOYDIR} --targetusername UAT --testlevel ${TEST_LEVEL}"
-            if (rc != 0) {
-                error 'Salesforce deploy and test run failed.'
-            }
+
+        stage('Deploy and Run Tests'){
+            rc = command "${toolbelt}/sfdx force:source:deploy --wait 10 --x ${PACKAGEDIR} --targetusername UAT --testlevel ${TEST_LEVEL}"
+             if (rc != 0) {
+                 error 'Salesforce deploy and test run failed.'
+             }
         }
+
+
+        // -------------------------------------------------------------------------
+        // Deploy metadata and execute unit tests - metadata format
+        // -------------------------------------------------------------------------
+
+        // stage('Deploy and Run Tests') {
+        //     rc = command "${toolbelt}/sfdx force:mdapi:deploy --wait 10 --deploydir ${DEPLOYDIR} --targetusername UAT --testlevel ${TEST_LEVEL}"
+        //     if (rc != 0) {
+        //         error 'Salesforce deploy and test run failed.'
+        //     }
+        // }
 
 
         // -------------------------------------------------------------------------
