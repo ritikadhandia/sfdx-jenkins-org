@@ -1,0 +1,98 @@
+<!--
+/*
+ * Copyright (c) 2018, salesforce.com, inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: BSD-3-Clause
+ * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+ */    
+-->
+<template>
+   
+    <lightning-card>
+        <h2 slot="title" class="compTitle">World Clock</h2>
+        <!-- edit icon at right corner of page-->
+        <lightning-button-icon onclick={handleEdit} if:false={editMode} variant="border" slot="actions" title="Edit" icon-name="utility:edit" alternative-text="Edit">
+        </lightning-button-icon>
+        <!-- when user hits edit button , This button to reset edit-->
+        <lightning-button-icon onclick={resetEdit} if:true={editMode} variant="border" slot="actions" title="Done" icon-name="action:check"  alternative-text="Done" >
+        </lightning-button-icon>
+
+        <div class="slds-grid slds-wrap">
+            <template for:each={timeZoneArrayObject} for:item="tz" if:true={showData}>
+                    <div key={tz.id} class={flexiClass}>
+                        <div class="slds-grid slds wrap">
+                            <div class="slds-size_2-of-6 slds-medium-size_2-of-12 slds-large-size_1-of-12">
+                                <!-- Delete enabled only in edit mode.
+                                Delete appears for all time zones except default time if enabled -->
+                                <template if:true={editMode}>
+                                    <lightning-button-icon
+                                       icon-class="slds-icon-text-error" 
+                                       slot="actions"
+                                       data-item={tz.timeZoneKey} 
+                                       data-id={tz.id} 
+                                       key={tz.Id} 
+                                       disabled={tz.cannotDelete}
+                                       icon-name="action:reject" 
+                                       alternative-text="Delete" 
+                                       title="Delete" 
+                                       variant="bare"
+                                       onclick={handleDelete}>
+                                    </lightning-button-icon>     
+                               </template>
+                            </div>
+                            <!-- pass time zone to independent component. independent components shows clock -->
+                            <div class="slds-size_4-of-6 slds-medium-size_10-of-12 slds-large-size_10-of-12">
+                                <c-individual-clock key={tz.timeZoneKey} time-zone={tz.timeZoneKey}></c-individual-clock> 
+                            </div>
+                        </div>
+                    </div>
+            </template>
+            <!-- New button -->
+            <template if:true={editMode}>  
+                <div class={flexiClassNew}>
+                    <div class="slds-grid slds wrap">
+                        <div class="slds-size_2-of-6 slds-medium-size_2-of-12 slds-large-size_1-of-12">
+                        </div>
+                        <div class="slds-size_4-of-6 slds-medium-size_10-of-12 slds-large-size_10-of-12">
+                            <template if:true={newButtonVisible}>
+                                <div class="addIconDiv">
+                                    <center>
+                                        <lightning-icon 
+                                            icon-name="action:new" 
+                                            alternative-text="New" 
+                                            title="New" 
+                                            onclick={handleNew}>
+                                        </lightning-icon>     
+                                    </center>
+                                </div>
+                            </template>
+                            <template if:true={newClockVisible}>
+                                <label class="slds-form-element__label slds-no-flex">
+                                    Timezone
+                                </label>
+                                <input 
+                                    id="input" 
+                                    data-id="timeZoneSelect" 
+                                    name="input" 
+                                    list="valueList" 
+                                    placeholder={timeZoneSelected} 
+                                    required={required} 
+                                    class="slds-input slds-size--1-of-1 timezoneInput" 
+                                    type="text" />
+                                <datalist id="valueList" class="">
+                                    <template if:true={picklistValues.data} for:each={picklistValues.data.values} for:item='item'>
+                                        <option key={item.value} value={item.value}>{item.label}</option>
+                                    </template> 
+                                </datalist>
+                                <lightning-button-group>
+                                    <lightning-button label="Save" onclick={handleSave}></lightning-button>
+                                    <lightning-button label="Cancel" onclick={handleReject}></lightning-button>
+                                </lightning-button-group>
+                            </template>  
+                        </div>      
+                    </div>            
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

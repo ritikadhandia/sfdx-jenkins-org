@@ -1,0 +1,40 @@
+.plusIcon{
+	float:left;
+	width: 100px;
+   position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	padding-top: 70px;
+	padding-left: 5%;
+}
+
+.timezoneInput{
+	margin: 4pt 0 16pt;
+}
+
+.addIconDiv{
+	text-align: center;
+	width:140px;
+	height: 150px;
+    line-height: 150px;
+}
+
+.compTitle{
+    font-weight: bold;
+}
+
+.red{
+	border-color: #eee;
+  border-width: 1px;
+  border-color:red;
+}
+
+.THIS .redOnWhite svg {
+    fill : red;
+}
+.THIS .redOnWhite {
+   background-color:white !important;
+}

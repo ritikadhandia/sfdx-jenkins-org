@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>48.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__HomePage,lightning__RecordPage">
+            <property name="strObjectName" type="String" label="Object Name" default="Case" required="true"/>
+            <property name="strObjectField" type="String" label="Object API Field" default="Status,Owner.Name" required="true"/>
+            <property name="strHistoryObj" type="String" label="History Object Name" default="CaseHistory" required="true"/>
+            <property name="strFieldName" type="String" label="Field Name to search in History" default="Status,Owner" required="true"/>
+            <property name="strHistoryFName" type="String" label="ParentId API Name Field on the History Object" default="CaseId" required="true"/>
+            <property name="leftMargin" type="Integer" label="Left margin for labels" default="100" required="true"/>
+            <property name="strTitle" type="String" label="Chart Title" default="Case Status Timeline" required="true"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

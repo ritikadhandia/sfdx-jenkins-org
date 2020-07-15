@@ -1,0 +1,20 @@
+body {
+    background: #eee;
+  }
+  
+  svg {
+    display: block;
+    xposition: absolute;
+    xtop: 50%;
+    xleft: 50%;
+    xtransform: translate(-50%, -50%);
+  }
+  
+  .filler {
+    background: #20B7AF;
+    position: absolute;
+    bottom: 50%;
+    top: 0;
+    left: 0;
+    right: 0;
+  }

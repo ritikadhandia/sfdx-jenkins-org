@@ -1,0 +1,64 @@
+<!--
+/*
+ * Copyright (c) 2018, salesforce.com, inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: BSD-3-Clause
+ * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+ */    
+-->
+<template>
+        
+        <div class="timeZoneTitle">{timeZoneFriendlyFormat}</div>
+        
+        <!-- <lightning-badge label={timeZone}></lightning-badge> -->
+   
+    <svg width="140" height="140">
+        <g>
+            <circle id="shadow" style="fill:rgba(0,0,0,0.1)" cx="77" cy="100" r="67" filter="url(#innerShadow)"></circle>
+            <template if:true={dayIsOn}>
+                <circle  id="circleDay" style="stroke: #FFF; stroke-width: 12px; fill:#20B7AF" cx="70" cy="70" r="60"></circle>
+            </template>
+            <template if:false={dayIsOn}>
+                Night
+                <circle  id="circleNight" style="stroke: #FFF; stroke-width: 12px;fill:#000000" cx="70" cy="70" r="60"></circle>
+            </template>    
+        </g>
+        <g>
+            <line x1="70" y1="70" x2="70" y2="45" transform="rotate(80 60 70)" style="stroke-width: 3px; stroke: #fffbf9;" id="hourhand">
+                <animatetransform attributeName="transform"
+                                attributeType="XML"
+                                type="rotate"
+                                dur="43200s"
+                                repeatCount="indefinite"
+                                from={hourAngleTextFrom}
+                                to={hourAngleTextTo}>
+                </animatetransform>
+            </line>
+            <line x1="70" y1="70" x2="70" y2="30" style="stroke-width: 4px; stroke: #fdfdfd;" id="minutehand">
+                <animatetransform attributeName="transform"
+                                attributeType="XML"
+                                type="rotate"
+                                dur="3600s"
+                                repeatCount="indefinite"
+                                from={minAngleTextFrom}
+                                to={minAngleTextTo}>
+                </animatetransform>
+            </line>
+            <line x1="70" y1="70" x2="70" y2="20" style="stroke-width: 2px; stroke: #C1EFED;" id="secondhand">
+                <animatetransform attributeName="transform"
+                                attributeType="XML"
+                                type="rotate"
+                                dur="60s"
+                                repeatCount="indefinite"
+                                from={secAngleTextFrom}
+                                to={secAngleTextTo}>
+                </animatetransform>
+            </line>
+        </g>
+        <circle id="center" style="fill:#128A86; stroke: #C1EFED; stroke-width: 2px;" cx="70" cy="70" r="3"></circle>
+        <template for:each={linesTransform} for:item="line">
+            <line x1="70" y1="30" x2="70" y2="20" style="stroke:#ffffff" transform={line.transform}
+                key={line.key}></line>
+        </template>
+    </svg>
+</template>

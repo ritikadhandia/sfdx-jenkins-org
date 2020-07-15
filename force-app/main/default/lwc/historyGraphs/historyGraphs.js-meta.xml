@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>48.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__HomePage,lightning__RecordPage">
+            <property name="strObjectName" type="String" label="Object Name" required="true"/>
+            <property name="strObjectField" type="String" label="Object API Field" default="Owner.Name" required="true"/>
+            <property name="strHistoryObj" type="String" label="History Object Name" required="true"/>
+            <property name="strFieldName" type="String" label="Field Name to search in History" required="true"/>
+            <property name="strHistoryFName" type="String" label="ParentId API Name Field on the History Object" required="true"/>
+            <property name="strTitle" type="String" label="Chart Title" required="true"/>
+            <property name="strColorScheme" type="String" label="Color Scheme (rgba)" default="rgba(23, 48, 91, 1)" required="true"/>
+            <property name="isPublisher" type="Boolean" label="Enable Publishing Capability" default="false"/>
+            <property name="isListener" type="Boolean" label="Enable Listening Capability" default="false"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

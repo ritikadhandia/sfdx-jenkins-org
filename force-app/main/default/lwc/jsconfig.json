@@ -1,0 +1,44 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "baseUrl": ".",
+        "paths": {
+            "c/clock": [
+                "clock/clock.js"
+            ],
+            "c/clockHolder": [
+                "clockHolder/clockHolder.js"
+            ],
+            "c/individualClock": [
+                "individualClock/individualClock.js"
+            ],
+            "c/historyGraphsOwner": [
+                "historyGraphsOwner/historyGraphsOwner.js"
+            ],
+            "c/historyGraphs": [
+                "historyGraphs/historyGraphs.js"
+            ],
+            "c/d3v4GanttChart": [
+                "d3v4GanttChart/d3v4GanttChart.js"
+            ],
+            "c/histogramGraph": [
+                "histogramGraph/histogramGraph.js"
+            ],
+            "c/smallClock": [
+                "smallClock/smallClock.js"
+            ],
+            "c/pubsub": [
+                "pubsub/pubsub.js"
+            ]
+        }
+    },
+    "include": [
+        "**/*",
+        "../../../../.sfdx/typings/lwc/**/*.d.ts"
+    ],
+    "typeAcquisition": {
+        "include": [
+            "jest"
+        ]
+    }
+}
