@@ -21,6 +21,13 @@ node {
         checkout scm
     }
 
+    stage('Static Code Analysis'){
+        rc = command "${toolbelt}/pmd -d ${WORKSPACE}/force-app/main/default -R /Users/rdhandia/Downloads/Apex_Ruleset.xml -f csv -reportfile /Users/rdhandia/Desktop/results.csv"
+        if (rc != 0) {
+             error 'PMD Failed'
+        }
+    }
+
 	
  //    stage('copy files to local workspace'){
 	// 	echo "${env.JOB_NAME}"
@@ -60,6 +67,8 @@ node {
                  error 'Salesforce deploy and test run failed.'
              }
         }
+
+
 
         // -------------------------------------------------------------------------
         // Deploy metadata and execute unit tests - metadata format
